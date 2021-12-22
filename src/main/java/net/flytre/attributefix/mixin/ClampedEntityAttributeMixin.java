@@ -16,27 +16,33 @@ public class ClampedEntityAttributeMixin {
     private static boolean patchRan = false;
 
     @Mutable
-    @Shadow
-    @Final
-    private double minValue;
+    @Shadow @Final private double minValue;
 
     @Mutable
-    @Shadow
-    @Final
-    private double maxValue;
+    @Shadow @Final private double maxValue;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void patch(String translationKey, double fallback, double min, double max, CallbackInfo ci) {
-        if (!patchRan) {
+        if(!patchRan) {
             System.out.println("[Flytre] Patching Attributes");
             patchRan = true;
         }
         switch (translationKey) {
-            case "attribute.name.generic.max_health", "attribute.name.generic.movement_speed", "attribute.name.generic.flying_speed", "attribute.name.generic.attack_damage", "attribute.name.generic.attack_knockback", "attribute.name.generic.attack_speed", "attribute.name.generic.armor", "attribute.name.generic.armor_toughness", "attribute.name.horse.jump_strength" -> this.maxValue = Double.MAX_VALUE;
-            case "attribute.name.generic.luck" -> {
+            case "attribute.name.generic.max_health":
+            case "attribute.name.generic.movement_speed" :
+            case "attribute.name.generic.flying_speed" :
+            case "attribute.name.generic.attack_damage":
+            case "attribute.name.generic.attack_knockback":
+            case "attribute.name.generic.attack_speed":
+            case "attribute.name.generic.armor":
+            case "attribute.name.generic.armor_toughness":
+            case "attribute.name.horse.jump_strength":
+                this.maxValue = Double.MAX_VALUE;
+                break;
+            case "attribute.name.generic.luck":
                 this.maxValue = Double.MAX_VALUE;
                 this.minValue = Double.MIN_VALUE;
-            }
+                break;
         }
     }
 
