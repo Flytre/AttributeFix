@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.flytre.attributefix.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+    "InGameHudMixin",
+    "MinecraftClientMixin"
+  ],
+  "mixins": [
+    "ClampedEntityAttributeMixin",
+    "DamageUtilMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
